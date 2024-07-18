@@ -1,0 +1,42 @@
+ 
+fn send_vpn_packet(vpn_packet: &[u8], server_ip: &str, server_port: u16) {
+    let address = format!("{}:{}", server_ip, server_port);
+    match TcpStream::connect(address) {
+        Ok(mut stream) => {
+            stream.write_all(vpn_packet).unwrap();
+            println!("Sent VPN packet to server");
+        }
+        Err(e) => {
+            eprintln!("Failed to connect to server: {}", e);
+        }
+    }
+}
+ // let source = ip_packet.get_source();
+            // let destination = ip_packet.get_destination();
+
+            // println!("Captured ip packet: source => {} -> destination => {}", source, destination);
+            // let vpn_ip: Ipv4Addr = Ipv4Addr::new(192, 168, 1, 1);
+            // let vpn_packet = create_vpn_packet(&ip_packet, vpn_ip);
+
+            // Send the VPN packet to the TCP server
+            // send_vpn_packet(&buf, "127.0.0.1", 8080);
+            // // receive;
+            // // write_to_tun
+            // let mut buffer = [0; 1500];
+            // let address = format!("{}:{}", "127.0.0.1", 8080);
+            // match TcpStream::connect(address) {
+            //     Ok(mut stream) => {
+            //         loop {
+            //             let size = stream.read(&mut buffer)?;
+            //             if let Some(ip_packet) = Ipv4Packet::new(&buffer[..size]) {
+            //                 println!("Received VPN packet from server: {:?}", ip_packet);
+            //                 // Write the packet to the TUN interface
+            //                 dev.write(&buffer[..size])?;
+            //                 break;
+            //                 }
+            //             }
+            //     }
+            //     Err(e) => {
+            //         eprintln!("Failed to connect to server: {}", e);
+            //     }
+            // }
